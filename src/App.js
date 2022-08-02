@@ -1,24 +1,47 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Navigate, Route, Routes,Outlet } from 'react-router-dom';
+import MasterLayout from './layouts/MasterLayout';
+import LoginLayout from './layouts/LoginLayout';
 
+import Authtoken from './context/Authtoken';
+
+import Dashboard from './components/Dashboard';
+import Users from './components/Users';
+import Login from './components/Login';
+const PrivateWrapper = (props) => {
+    return props.token ? <Outlet /> : <Navigate to="/login" />;
+}
+const ProtectedWrapper = (props) => {
+    return (!props.token) ? <Outlet /> : <Navigate to="/home" />;
+}
 function App() {
+    const {token, setToken} = Authtoken();
+
+  if(!token) {
+    return (
+        <BrowserRouter> 
+            <LoginLayout>
+                <Routes element={<ProtectedWrapper auth={token}/>}>
+                    <Route path="*" element={ <Navigate to="/login" /> } />
+                    <Route exact path="/login" element={<Login setToken={setToken} />}/>
+                </Routes>
+            </LoginLayout>
+        </BrowserRouter>
+    )
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+        <BrowserRouter>            
+            <MasterLayout>
+                <Routes element={<PrivateWrapper auth={token}/>}>
+                    <Route path="*" element={ <Navigate to="/home" /> } />
+                    <Route exact path="/home" element={<Dashboard/>}/>
+                    <Route exact path="/users" element={<Users/>}/>
+                </Routes>
+            </MasterLayout>            
+        </BrowserRouter>
+    </>   
   );
 }
 
