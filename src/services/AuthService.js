@@ -14,5 +14,21 @@ const AuthService = {
                 return json;
             });
     },
+    updateUser:async function(credentials,user_id) {
+        return fetch('https://dummyjson.com/users/'+user_id, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credentials)
+        }).then(res => res.json()).then(json => {
+            return json;
+        });
+    },
+    deleteUser:async function(user_id) {
+        return fetch('https://dummyjson.com/users/'+user_id, {
+                method: 'DELETE',
+        }).then(res => res.json()).then(json => {
+            return json;
+        });
+    },
 }
 export default AuthService;

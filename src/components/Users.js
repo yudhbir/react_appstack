@@ -1,8 +1,11 @@
-import AuthService from '../services/AuthService';
 import React, { useState,useEffect } from 'react';
+import AuthService from '../services/AuthService';
+import EditUserModal from './modals/EditUserModal';
 function Users(){
     const [users, setUsers] = useState('');
     const [isloading, setIsloading] = useState(false);
+    const [editaction, setEditaction] = useState(false);
+    const [edituser, setEdituser] = useState(0);
     useEffect(() => {
         async function fetchData() {
             const user_info = await AuthService.userListing();
@@ -15,6 +18,21 @@ function Users(){
         fetchData();
 
     },[]);
+    const show_user_info=(evt,user)=>{        
+        setEditaction(true);
+        setEdituser(user);
+    }
+    const closeModal=(e)=>{        
+        setEditaction(false);
+        setEdituser(0);
+    }
+    const delete_user_info=async (evt,user_id)=>{
+        let cflag=confirm('Are you sure to remove this record?');
+        if(cflag){
+            const deleted_data = await AuthService.deleteUser(user_id);  
+            console.log(deleted_data);
+        }
+    }
     return(
         <>
             <div className="pcoded-main-container">
@@ -26,11 +44,11 @@ function Users(){
                                     <div className="row align-items-center">
                                         <div className="col-md-12">
                                             <div className="page-header-title">
-                                                <h5 className="m-b-10">User Mangement</h5>
+                                                <h5 className="m-b-10">User Management</h5>
                                             </div>
                                             <ul className="breadcrumb">
                                                 <li className="breadcrumb-item"><a href="index.html"><i className="feather icon-home"></i></a></li>
-                                                <li className="breadcrumb-item"><a href="index.html">User Mangement</a></li>
+                                                <li className="breadcrumb-item"><a href="index.html">User Management</a></li>
                                                 <li className="breadcrumb-item"><a href="index.html">User Listing</a></li>
                                             </ul>
                                         </div>
@@ -59,21 +77,23 @@ function Users(){
                                                                     <th>Phone</th>
                                                                     <th>SSN</th>
                                                                     <th>Birth Date</th>
+                                                                    <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                             {   isloading ? (
-                                                                    users.map((e, i) => {
+                                                                    users.map((user, i) => {
                                                                         return <tr key={i}> 
-                                                                            <td scope="row">{e.id}</td> 
-                                                                            <td>{e.firstName}</td> 
-                                                                            <td>{e.lastName}</td> 
-                                                                            <td>{e.username}</td> 
-                                                                            <td>{e.email}</td> 
-                                                                            <td>{e.ein}</td> 
-                                                                            <td>{e.phone}</td> 
-                                                                            <td>{e.ssn}</td> 
-                                                                            <td>{e.birthDate}</td> 
+                                                                            <td scope="row">{user.id}</td> 
+                                                                            <td>{user.firstName}</td> 
+                                                                            <td>{user.lastName}</td> 
+                                                                            <td>{user.username}</td> 
+                                                                            <td>{user.email}</td> 
+                                                                            <td>{user.ein}</td> 
+                                                                            <td>{user.phone}</td> 
+                                                                            <td>{user.ssn}</td> 
+                                                                            <td>{user.birthDate}</td> 
+                                                                            <td><a className="tag" onClick={(evt)=>show_user_info(evt,user)}>Edit</a> &nbsp;<a  className="tag" onClick={(evt)=>delete_user_info(evt,user.id)}>Delete</a></td> 
                                                                         </tr>
                                                                     })
                                                                 ) : (
@@ -94,6 +114,10 @@ function Users(){
                     </div>
                 </div>
             </div>
+            <div id="edit_user_popup"></div> 
+            {   editaction &&  edituser &&
+                <EditUserModal user={edituser} showpop={editaction} destroyModal={()=>closeModal()}/>                
+            }
         </>
     );
 }

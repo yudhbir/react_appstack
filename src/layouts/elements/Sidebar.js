@@ -31,7 +31,7 @@ function Sidebar(){
                                 <Link to="/users" className="nav-link "><span className="pcoded-micon"><i className="feather icon-box"></i></span><span className="pcoded-mtext">User Mangement</span></Link>
                             </li>
                             <li data-username="form elements advance componant validation masking wizard picker select" className="nav-item">
-                                <a href="form_elements.html" className="nav-link "><span className="pcoded-micon"><i className="feather icon-file-text"></i></span><span className="pcoded-mtext">Form elements</span></a>
+                                <Link to="/products" className="nav-link "><span className="pcoded-micon"><i className="feather icon-file-text"></i></span><span className="pcoded-mtext">Products Mangement</span></Link>
                             </li>
                             <li data-username="Table bootstrap datatable footable" className="nav-item">
                                 <a href="tbl_bootstrap.html" className="nav-link "><span className="pcoded-micon"><i className="feather icon-server"></i></span><span className="pcoded-mtext">Table</span></a>

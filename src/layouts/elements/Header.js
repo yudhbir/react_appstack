@@ -1,3 +1,4 @@
+import TopNavCart from '../../components/TopNavCart'
 function Header(){
     return(
         <>
@@ -52,6 +53,7 @@ function Header(){
                                     </div>
                                 </div>
                                 <ul className="noti-body">
+                                    <TopNavCart />
                                     <li className="n-title">
                                         <p className="m-b-0">NEW</p>
                                     </li>

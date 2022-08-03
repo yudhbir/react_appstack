@@ -8,6 +8,7 @@ import Authtoken from './context/Authtoken';
 
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
+import Products from './components/Products';
 import Login from './components/Login';
 const PrivateWrapper = (props) => {
     return props.token ? <Outlet /> : <Navigate to="/login" />;
@@ -38,6 +39,7 @@ function App() {
                     <Route path="*" element={ <Navigate to="/home" /> } />
                     <Route exact path="/home" element={<Dashboard/>}/>
                     <Route exact path="/users" element={<Users/>}/>
+                    <Route exact path="/products" element={<Products/>}/>
                 </Routes>
             </MasterLayout>            
         </BrowserRouter>
