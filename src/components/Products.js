@@ -1,13 +1,15 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import ProductService from '../services/ProductService';
 import EditProductModal from './modals/EditProductModal';
 import TopNavCart from './TopNavCart'
+import CartContext from '../context/CartContext';
 function Products(){
     const [products, setProducts] = useState('');
     const [isloading, setIsloading] = useState(false);
     const [editaction, setEditaction] = useState(false);
     const [editproduct, setEditproduct] = useState(0);
     const [topnavcart, setTopnavcart] = useState([]);
+    const [, setNavcart] = useContext(CartContext);
     useEffect(() => {
         async function fetchData() {
             const product_info = await ProductService.productListing();
@@ -49,15 +51,15 @@ function Products(){
         setTopnavcart(products_listing)
     }
     function addto_bucketCart(evt, prod){
+        let cart_info="";
         if(evt.target.checked){
-            setTopnavcart(existingItems => {
-                return [prod, ...existingItems]        
-            })
+            cart_info=[prod, ...topnavcart];
         }else{
             const val = evt.target.value;
-            setTopnavcart(topnavcart=>topnavcart.filter(item => item.id != val));
+            cart_info=topnavcart.filter(item => item.id != val)
         }
-        // console.log(topnavcart);
+        setTopnavcart(cart_info);
+        setNavcart(cart_info);
     }
     return(
         <>

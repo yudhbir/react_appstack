@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes,Outlet } from 'react-router-dom';
 import MasterLayout from './layouts/MasterLayout';
 import LoginLayout from './layouts/LoginLayout';
@@ -10,14 +11,17 @@ import Dashboard from './components/Dashboard';
 import Users from './components/Users';
 import Products from './components/Products';
 import Login from './components/Login';
+import CartContext from './context/CartContext';
 const PrivateWrapper = (props) => {
     return props.token ? <Outlet /> : <Navigate to="/login" />;
 }
 const ProtectedWrapper = (props) => {
     return (!props.token) ? <Outlet /> : <Navigate to="/home" />;
 }
+
 function App() {
     const {token, setToken} = Authtoken();
+    const [navcart, setNavcart] = useState([]);
 
   if(!token) {
     return (
@@ -33,15 +37,17 @@ function App() {
   }
   return (
     <>
-        <BrowserRouter>            
-            <MasterLayout>
-                <Routes element={<PrivateWrapper auth={token}/>}>
-                    <Route path="*" element={ <Navigate to="/home" /> } />
-                    <Route exact path="/home" element={<Dashboard/>}/>
-                    <Route exact path="/users" element={<Users/>}/>
-                    <Route exact path="/products" element={<Products/>}/>
-                </Routes>
-            </MasterLayout>            
+        <BrowserRouter>
+            <CartContext.Provider value={[navcart, setNavcart]}>            
+                <MasterLayout>
+                    <Routes element={<PrivateWrapper auth={token}/>}>
+                        <Route path="*" element={ <Navigate to="/home" /> } />
+                        <Route exact path="/home" element={<Dashboard/>}/>
+                        <Route exact path="/users" element={<Users/>}/>
+                        <Route exact path="/products" element={<Products/>}/>
+                    </Routes>
+                </MasterLayout>  
+            </CartContext.Provider>          
         </BrowserRouter>
     </>   
   );

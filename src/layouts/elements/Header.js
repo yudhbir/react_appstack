@@ -54,39 +54,6 @@ function Header(){
                                 </div>
                                 <ul className="noti-body">
                                     <TopNavCart />
-                                    <li className="n-title">
-                                        <p className="m-b-0">NEW</p>
-                                    </li>
-                                    <li className="notification">
-                                        <div className="media">
-                                            <img className="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder "/>
-                                            <div className="media-body">
-                                                <p><strong>John Doe</strong><span className="n-time text-muted"><i className="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                                <p>New ticket Added</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="n-title">
-                                        <p className="m-b-0">EARLIER</p>
-                                    </li>
-                                    <li className="notification">
-                                        <div className="media">
-                                            <img className="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder "/>
-                                            <div className="media-body">
-                                                <p><strong>Joseph William</strong><span className="n-time text-muted"><i className="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                                <p>Prchace New Theme and make payment</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="notification">
-                                        <div className="media">
-                                            <img className="img-radius" src="assets/images/user/avatar-3.jpg" alt="Generic placeholder "/>
-                                            <div className="media-body">
-                                                <p><strong>Sara Soudein</strong><span className="n-time text-muted"><i className="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                                <p>currently login</p>
-                                            </div>
-                                        </div>
-                                    </li>
                                 </ul>
                                 <div className="noti-footer">
                                     <a href="!#">show all</a>

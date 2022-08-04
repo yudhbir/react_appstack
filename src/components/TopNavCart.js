@@ -1,16 +1,13 @@
-import React, { useState,useEffect } from 'react';
-function TopNavCart(props){
-    // const [navcart, setNavcart] = useState([]);
-    const cart_info=props.cart;
-    // console.log("cart",cart_info);
-    // function update_cart(data){
-    //     setNavcart(data);
-    // }
+import React, { useState,useContext } from 'react';
+import CartContext from '../context/CartContext';
+function TopNavCart(){
+    const navcart = useContext(CartContext);
+    // console.log("cart",navcart);
     return(
         <>
-            {   cart_info &&  cart_info.length>0 &&
-                cart_info.map((cart, i) => {
-                    <li className="notification">
+            {   navcart &&  navcart.length>0 &&
+                navcart[0].map((cart, i) => {
+                    return <li className="notification" key={i}>
                         <div className="media">
                             <img className="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder "/>
                             <div className="media-body">
