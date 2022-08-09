@@ -10,6 +10,7 @@ import Authtoken from './context/Authtoken';
 import Dashboard from './components/Dashboard';
 import Users from './components/Users';
 import Products from './components/Products';
+import Charts from './components/Charts';
 import Login from './components/Login';
 import CartContext from './context/CartContext';
 const PrivateWrapper = (props) => {
@@ -45,6 +46,7 @@ function App() {
                         <Route exact path="/home" element={<Dashboard/>}/>
                         <Route exact path="/users" element={<Users/>}/>
                         <Route exact path="/products" element={<Products/>}/>
+                        <Route exact path="/charts" element={<Charts/>}/>
                     </Routes>
                 </MasterLayout>  
             </CartContext.Provider>          
